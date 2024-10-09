@@ -1,0 +1,29 @@
+<h2>Shopping Cart</h2>
+
+<div>
+  <h3>Add Product</h3>
+  <input type="text" [(ngModel)]="newProduct.name" placeholder="Product Name" />
+  <input type="number" [(ngModel)]="newProduct.price" placeholder="Product Price" min="0" />
+  <input type="number" [(ngModel)]="newProduct.quantity" placeholder="Quantity" min="1" />
+  <button (click)="addProduct()">Add Product</button>
+</div>
+
+<div *ngIf="products.length === 0">
+  <p>Your cart is empty.</p>
+</div>
+
+<div *ngFor="let product of products">
+  <div>
+    <p>{{ product.name }} - {{ product.price | currency }} x
+      <input type="number" [(ngModel)]="product.quantity" (change)="updateQuantity(product.id, product.quantity)" min="1" />
+      <button (click)="removeProduct(product.id)">Remove</button>
+    </p>
+  </div>
+</div>
+
+<p>Total: {{ totalPrice | currency }}</p>
+
+<div>
+  <input type="text" [(ngModel)]="couponCode" placeholder="Enter coupon code" />
+  <button (click)="applyCoupon()">Apply Coupon</button>
+</div>
